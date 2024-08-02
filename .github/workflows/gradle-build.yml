@@ -32,7 +32,10 @@ jobs:
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3 # v3
-
+      
+    - name: Look for gradlew
+      run: find / -type f -name "gradlew"
+      
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
