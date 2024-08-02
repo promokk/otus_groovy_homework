@@ -34,6 +34,7 @@ jobs:
       uses: gradle/actions/setup-gradle@v3 # v3
 
     - name: Build with Gradle Wrapper
+      working-directory: ./otus-groovy
       run: ./gradlew build
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
