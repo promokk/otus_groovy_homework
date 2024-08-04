@@ -20,12 +20,16 @@ gradle-app.setting
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 **/.idea/
+/**/.idea/
 
 # Compiled class file
 *.class
 
 # Log file
 *.log
+
+# lib
+*.lib
 
 # BlueJ files
 *.ctxt
