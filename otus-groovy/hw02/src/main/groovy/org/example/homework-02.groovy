@@ -1,4 +1,4 @@
-package org.example.otus
+package org.example
 
 static void main(String[] args) {
     def number = new RomanNumber("II");
