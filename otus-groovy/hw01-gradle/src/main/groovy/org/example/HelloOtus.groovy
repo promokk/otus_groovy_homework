@@ -1,4 +1,4 @@
-package org.example.otus
+package org.example
 
 import com.google.common.base.Strings
 

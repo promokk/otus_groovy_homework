@@ -1,4 +1,4 @@
-package org.example.otus
+package org.example
 
 class RomanNumber implements Comparable<RomanNumber> {
     int number
@@ -32,7 +32,7 @@ class RomanNumber implements Comparable<RomanNumber> {
         mapRomanNumber[this.number]
     }
 
-    // Переопределяем сравнение объекта RomanNumber (метод equals)
+    // Переопределяем сравнение объекта RomanNumber
     @Override
     int compareTo(RomanNumber o) {
         return this.number <=> o?.number
