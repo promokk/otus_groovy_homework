@@ -2,7 +2,7 @@ package org.example
 
 class CashMachine {
     // Всего денег в банкомате
-    private BigInteger totalSum = 0
+    private Object totalSum = [:]
     // Массив Banknote
     private Object nominal = [Banknote]
 
@@ -12,44 +12,73 @@ class CashMachine {
     }
 
     // Метод для расчета суммы денег в банкомате
-    private def checkSum(banknotes) {
-        int sum = 0
+    private def checkSum(Object banknotes) {
+        Map sum = [:]
+        for (i in Currency.values()){
+            sum[i] = 0
+        }
         for (banknote in banknotes) {
-            sum += banknote.title * banknote.count
+            sum[banknote.currency] += banknote.value * banknote.count
         }
         return this.totalSum = sum
     }
 
+    // Метод для проверки средств определенной валюты
+    private def checkMoney(BigInteger sumMoney, Currency currency) {
+        if (this.totalSum[currency] - sumMoney < 0) {
+            return false
+        }
+        return true
+    }
+
     // Метод выводит инфо банкомата
-    def checkStatusSum() {
-        String str = """Инфо:
-            |Осталось денежных средств в банкомате: ${this.totalSum}
-            |Количество банкнот:\n""".stripMargin()
-        for (banknote in this.nominal) {
-            str += "Номинал ${banknote.title}: ${banknote.count}\n"
+    def checkStatus() {
+        String str = "Инфо:\n"
+        for (cur in this.totalSum) {
+            str += "Осталось денежных средств в банкомате: ${cur.value} ${cur.key.value}" +
+                    "\nКоличество банкнот ${cur.key}(${cur.key.value}):\n"
+            for (banknote in this.nominal) {
+                if (banknote.currency == cur.key)
+                str += "Номинал ${banknote.value}: ${banknote.count}\n"
+            }
         }
         return str
     }
 
-    // Метод для вывода средств из банкомата
-    def withdrawalBanknotes(BigInteger sumMoney) {
+//     Метод для вывода средств из банкомата
+    def withdrawalBanknotes(BigInteger sumMoney, Currency currency) {
         BigInteger money = sumMoney
         Object nominal = this.nominal.clone()
-        if (this.totalSum - money < 0) {
-            return "Ошибка: недостаточно средств в банкомате!"
-        }
+
+         if (!checkMoney(money, currency)) {
+             return "Ошибка: недостаточно средств в банкомате!"
+         }
+
         for (int i = 0; i < nominal.size(); i++) {
-            while (money - nominal[i].title >= 0 && nominal[i].count) {
-                money -= nominal[i].title
+            while (money - nominal[i].value >= 0 && nominal[i].count && nominal[i].currency == currency) {
+                money -= nominal[i].value
                 nominal[i]--
             }
         }
         if (money) {
-            return "Ошибка: невозвожно выдать часть средств - ${money} из ${sumMoney}!"
+            return "Ошибка: невозвожно выдать часть средств - ${money} из ${sumMoney} ${currency.value}!"
         }
 
         this.totalSum = checkSum(nominal)
         this.nominal = nominal
-        return "Выдано: ${sumMoney}"
+        return "Выдано: ${sumMoney} ${currency.value}"
+    }
+
+    // Метод для ввода средств в банкомат
+    def enteringBanknotes(Object value, Currency currency) {
+        Object nominal = this.nominal.clone()
+        for (v in value) {
+            int i = this.nominal.findIndexOf { it.value == v }
+            nominal[i]++
+        }
+
+        this.totalSum = checkSum(nominal)
+        this.nominal = nominal
+        return "Внесено: ${value.sum()} ${currency.value}"
     }
 }

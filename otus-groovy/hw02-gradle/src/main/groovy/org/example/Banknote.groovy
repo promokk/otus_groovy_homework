@@ -1,20 +1,26 @@
 package org.example
 
 class Banknote implements Comparable<Banknote>  {
-    BigInteger title
+    BigInteger value
     BigInteger count
+    Currency currency
 
-    Banknote(title, count) {
-        this.title = title
+    Banknote(value, count, currency) {
+        this.value  = value
         this.count = count
+        this.currency = currency
+    }
+
+    def next() {
+        new Banknote(this.value , this.count + 1, this.currency)
     }
 
     def previous() {
-        new Banknote(this.title, this.count - 1)
+        new Banknote(this.value , this.count - 1, this.currency)
     }
 
     @Override
     int compareTo(Banknote o) {
-        return this.title <=> o?.title
+        return this.value  <=> o?.value
     }
 }
