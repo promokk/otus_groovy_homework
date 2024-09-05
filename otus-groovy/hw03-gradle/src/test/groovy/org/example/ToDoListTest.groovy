@@ -7,7 +7,8 @@ import java.time.LocalDateTime
 
 
 class ToDoListTest {
-    ToDoList toDoList = new ToDoList()
+    InMemoryTask inMemoryTask = new InMemoryTask()
+    ToDoList toDoList = new ToDoList(inMemoryTask)
 
     @Test
     void testAdd() {
@@ -45,8 +46,8 @@ class ToDoListTest {
                 1
         )
 
-        String result01 = toDoList.tasks.size()
-        String result02 = toDoList.tasks[1].actions.size()
+        String result01 = inMemoryTask.tasks.size()
+        String result02 = inMemoryTask.tasks[1].actions.size()
 
         Assertions.assertEquals('2', result01.toString())
         Assertions.assertEquals('3', result02.toString())
@@ -71,8 +72,8 @@ class ToDoListTest {
         toDoList.set(1, [title: "Новая Задача 1"])
         toDoList.set(1, 1, [title: "Новое Действие 1-1"])
 
-        String result01 = toDoList.tasks[1].title
-        String result02 = toDoList.tasks[1].actions[1].title
+        String result01 = inMemoryTask.tasks[1].title
+        String result02 = inMemoryTask.tasks[1].actions[1].title
 
         Assertions.assertEquals('Новая Задача 1', result01)
         Assertions.assertEquals('Новое Действие 1-1', result02)
@@ -87,8 +88,7 @@ class ToDoListTest {
                 LocalDateTime.of(2024, 8, 25, 01, 20)
         )
 
-        Assertions.assertEquals('false', result01.toString())
-        Assertions.assertEquals('0', toDoList.tasks.size().toString())
+        Assertions.assertEquals('0', inMemoryTask.tasks.size().toString())
     }
 
     @Test
@@ -127,10 +127,7 @@ class ToDoListTest {
                 1
         )
 
-        Assertions.assertEquals('false', result01.toString())
-        Assertions.assertEquals('false', result02.toString())
-        Assertions.assertEquals('false', result03.toString())
-        Assertions.assertEquals('1', toDoList.tasks.size().toString())
-        Assertions.assertEquals('1', toDoList.tasks[1].actions.size().toString())
+        Assertions.assertEquals('1', inMemoryTask.tasks.size().toString())
+        Assertions.assertEquals('1', inMemoryTask.tasks[1].actions.size().toString())
     }
 }
