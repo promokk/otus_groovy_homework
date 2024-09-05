@@ -4,7 +4,8 @@ import java.time.LocalDateTime
 
 
 static void main(String[] args) {
-    def toDoList = new ToDoList()
+    InMemoryTask inMemoryTask = new InMemoryTask()
+    def toDoList = new ToDoList(inMemoryTask)
 
     toDoList.add(
             "Задача 1",
@@ -35,8 +36,8 @@ static void main(String[] args) {
 
     toDoList.set(1, [title: "Новая Задача 1"])
     toDoList.set(1, 1, [title: "Новое Действие 1-1"])
-//    toDoList.infoToDoList()
-//    toDoList.infoToDoList(1)
+    toDoList.infoToDoList()
+    toDoList.infoToDoList(1)
     toDoList.findTaskByDate(LocalDateTime.of(2024 as int, 8 as int, 26, 00, 00).toLocalDate())
     toDoList.checkEvent()
 }
