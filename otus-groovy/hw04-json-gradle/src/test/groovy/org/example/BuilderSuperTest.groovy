@@ -5,11 +5,13 @@ import org.junit.jupiter.api.Test
 
 class BuilderSuperTest {
     BuilderSuper builderSuper = new BuilderSuper()
-    String sourceJson =
-            new URL('https://raw.githubusercontent.com/Groovy-Developer/groovy-homeworks/main/hw-5/test.json').text
 
     @Test
     void testBuilderHtml() {
+        builderSuper.downloadFile(
+                'jsonFile.json',
+                'https://raw.githubusercontent.com/Groovy-Developer/groovy-homeworks/main/hw-5/test.json'
+        )
         def testHtml = "<html>\n" +
                 "  <div>\n" +
                 "    <div id='employee'>\n" +
@@ -25,11 +27,15 @@ class BuilderSuperTest {
                 "  </div>\n" +
                 "</html>"
 
-        Assertions.assertEquals(testHtml, builderSuper.builderHtml(sourceJson).toString())
+        Assertions.assertEquals(testHtml, builderSuper.builderHtml('jsonFile.json'))
     }
 
     @Test
     void testBuilderXml() {
+        builderSuper.downloadFile(
+                'jsonFile.json',
+                'https://raw.githubusercontent.com/Groovy-Developer/groovy-homeworks/main/hw-5/test.json'
+        )
         def testXml = "<xml>\n" +
                 "  <employee>\n" +
                 "    <name>Пупкин Морква Свеклович</name>\n" +
@@ -43,6 +49,11 @@ class BuilderSuperTest {
                 "  </employee>\n" +
                 "</xml>"
 
-        Assertions.assertEquals(testXml, builderSuper.builderXml(sourceJson).toString())
+        builderSuper.builderXmlFile('jsonFile.json', 'xmlFile.xml')
+        String xmlFile = ''
+        new File(builderSuper.baseDir, 'xmlFile.xml').withInputStream { stream ->
+            xmlFile = stream.text
+        }
+        Assertions.assertEquals(testXml, xmlFile)
     }
 }
