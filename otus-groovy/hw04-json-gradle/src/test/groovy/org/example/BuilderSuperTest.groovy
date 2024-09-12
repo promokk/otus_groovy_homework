@@ -27,7 +27,7 @@ class BuilderSuperTest {
                 "  </div>\n" +
                 "</html>"
 
-        Assertions.assertEquals(testHtml, builderSuper.builderHtml('jsonFile.json'))
+        Assertions.assertEquals(testHtml, builderSuper.builderHtml('jsonFile.json').toString())
     }
 
     @Test
