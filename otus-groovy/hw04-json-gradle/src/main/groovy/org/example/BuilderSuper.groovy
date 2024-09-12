@@ -2,14 +2,15 @@ package org.example
 
 import groovy.json.JsonSlurper
 import groovy.xml.MarkupBuilder
+import org.apache.tools.ant.Project
 
 class BuilderSuper {
     JsonSlurper jsonSlurper = new JsonSlurper()
-    String baseDir = 'D:/git/otus-groovy-homework/otus-groovy/fileDirectory'
+//    String baseDir = ""
 
     void downloadFile(String nameFile, String url) {
         String sourceJson = new URL(url).text
-        def file = new File(this.baseDir, nameFile)
+        def file = new File(nameFile)
         // очищаем файл
         file.text = ''
         file << sourceJson
@@ -18,7 +19,7 @@ class BuilderSuper {
     def builderHtml(String jsonFile) {
         StringWriter writer = new StringWriter()
         MarkupBuilder builder = new MarkupBuilder(writer)
-        new File(this.baseDir, jsonFile).withInputStream { stream ->
+        new File(jsonFile).withInputStream { stream ->
             def resultJson = this.jsonSlurper.parseText(stream.text)
             builder.html {
                 div {
@@ -41,7 +42,7 @@ class BuilderSuper {
     void builderXmlFile(String jsonFile, String nameFile) {
         StringWriter writer = new StringWriter()
         MarkupBuilder builder = new MarkupBuilder(writer)
-        new File(this.baseDir, jsonFile).withInputStream { stream ->
+        new File(jsonFile).withInputStream { stream ->
             def resultJson = this.jsonSlurper.parseText(stream.text)
             builder.xml {
                 employee {
@@ -55,7 +56,7 @@ class BuilderSuper {
                     }
                 }
             }
-            def file = new File(this.baseDir, nameFile)
+            def file = new File(nameFile)
             file.text = ''
             file << writer
         }
