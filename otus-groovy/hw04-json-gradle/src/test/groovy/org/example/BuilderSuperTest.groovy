@@ -51,7 +51,7 @@ class BuilderSuperTest {
 
         builderSuper.builderXmlFile('jsonFile.json', 'xmlFile.xml')
         String xmlFile = ''
-        new File(builderSuper.baseDir, 'xmlFile.xml').withInputStream { stream ->
+        new File('xmlFile.xml').withInputStream { stream ->
             xmlFile = stream.text
         }
         Assertions.assertEquals(testXml, xmlFile)
