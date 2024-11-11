@@ -1,11 +1,13 @@
 package grails.todo.list
 
-import grails.todo.list.TaskService as taskS
+import grails.databinding.BindingFormat
 
 class Action {
     String title
     String description
+    @BindingFormat('dd-MM-yy HH:mm')
     Date dateTimeStart
+    @BindingFormat('dd-MM-yy HH:mm')
     Date dateTimeEnd
     Task task
 

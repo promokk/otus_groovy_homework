@@ -1,11 +1,13 @@
 package grails.todo.list
 
-import groovy.time.TimeDuration
+import grails.databinding.BindingFormat
 
 class Task {
     String title
     String description
+    @BindingFormat('dd-MM-yy HH:mm')
     Date dateTimeStart
+    @BindingFormat('dd-MM-yy HH:mm')
     Date dateTimeEnd
     List actions
     static hasMany = [ actions : Action ]
