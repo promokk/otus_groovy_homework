@@ -1,0 +1,60 @@
+### Task all
+
+GET  http://localhost:8080/task/index
+Content-Type: application/json
+
+### Task show id
+
+GET  http://localhost:8080/task/show/1
+Content-Type: application/jsonc
+
+### Task save
+
+POST  http://localhost:8080/task/save
+Content-Type: application/json
+
+{
+  "title": "123456",
+  "description": "12345678",
+  "dateTimeStart": "11-11-2024 20:00",
+  "dateTimeEnd": "11-11-2024 23:00",
+  "actions": []
+}
+
+### Task delete id
+
+DELETE  http://localhost:8080/task/delete/1
+Content-Type: application/json
+
+
+### Action all
+
+GET  http://localhost:8080/action/index
+Content-Type: application/json
+
+### Action show id
+
+GET  http://localhost:8080/action/show/1
+Content-Type: application/jsonc
+
+### Action save
+
+POST  http://localhost:8080/action/save
+Content-Type: application/json
+
+{
+  "title": "123456",
+  "description": "12345678",
+  "dateTimeStart": "11-11-2024 20:00",
+  "dateTimeEnd": "11-11-2024 20:30",
+  "task": 1
+}
+
+### Action delete id
+
+DELETE  http://localhost:8080/action/delete/1
+Content-Type: application/json
+
+###
+
+
